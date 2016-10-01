@@ -1,20 +1,29 @@
 package cc.tachi.passwordrecorder;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -27,6 +36,9 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fm;
     private android.support.v4.app.FragmentTransaction transaction;
     private SharedPreferences preferences;
+    private ImageView nav_img;
+    private TextView nav_user;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        context = this;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +55,8 @@ public class MainActivity extends AppCompatActivity
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 preferences = getSharedPreferences("logined", MODE_PRIVATE);
-                String name = preferences.getString("logined","");
-                Log.i("name",name);
+                String name = preferences.getString("logined", "");
+                Log.i("name", name);
                 if (!Objects.equals(name, "")) {
                     setTitle("添加");
                     transaction = fm.beginTransaction();
@@ -62,6 +75,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //头像点击事件
+        View headerView = navigationView.getHeaderView(0);
+        nav_img = (ImageView) headerView.findViewById(R.id.imageView);
+        nav_user = (TextView) headerView.findViewById(R.id.user);
+        nav_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (logined()) {
+                    Toast.makeText(context, "已登录", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         fm = getSupportFragmentManager();
         query = new FragmentQuery();
@@ -71,6 +96,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    0);
+        }
+
+        Update update = new Update(context);
+        update.checkUpdate();
+
         SQLiteDatabase db = openOrCreateDatabase("tachi.db", MODE_PRIVATE, null);
 
         db.execSQL("create table if not exists user (id integer primary key autoincrement, user text not null , password text not null )");
@@ -78,7 +114,7 @@ public class MainActivity extends AppCompatActivity
 
 
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
-        String name = preferences.getString("logined","");
+        String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
             transaction = fm.beginTransaction();
             transaction.replace(R.id.id_content, login);
@@ -122,9 +158,9 @@ public class MainActivity extends AppCompatActivity
                 Log.v("EncryptDecrypt", "Encoded String " + encryptedData);
                 try {
                     String decryptedData = AESHelper.decrypt("12345", encryptedData);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                    Log.v("info","error");
+                    Log.v("info", "error");
                 }
 
             } catch (Exception e) {
@@ -141,30 +177,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        preferences = getSharedPreferences("logined", MODE_PRIVATE);
-        String name = preferences.getString("logined","");
-        Log.i("name",name);
-        if (Objects.equals(name, "")) {
-            this.setTitle("登录");
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, login);
-            transaction.commit();
-        } else {
-            if (id == R.id.nav_login) {
-                Toast.makeText(this,"已登录",Toast.LENGTH_SHORT).show();
-            } else {
-                if (id == R.id.nav_query) {
-                    this.setTitle("查询");
-                    transaction = fm.beginTransaction();
-                    transaction.replace(R.id.id_content, query);
-                    transaction.commit();
-                } else if (id == R.id.nav_add) {
-                    this.setTitle("添加");
-                    transaction = fm.beginTransaction();
-                    transaction.replace(R.id.id_content, add);
-                    transaction.commit();
-                }
+        if (logined()) {
+            if (id == R.id.nav_query) {
+                this.setTitle("查询");
+                transaction = fm.beginTransaction();
+                transaction.replace(R.id.id_content, query);
+                transaction.commit();
+            } else if (id == R.id.nav_add) {
+                this.setTitle("添加");
+                transaction = fm.beginTransaction();
+                transaction.replace(R.id.id_content, add);
+                transaction.commit();
             }
         }
 
@@ -180,4 +203,41 @@ public class MainActivity extends AppCompatActivity
         editor.apply();
         super.onDestroy();
     }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(keyCode == KeyEvent.KEYCODE_BACK ){
+//            this.setTitle("查询");
+//            transaction = fm.beginTransaction();
+//            transaction.replace(R.id.id_content, query);
+//            transaction.commit();
+//        }
+//        return false;
+//    }
+
+    public boolean logined() {
+        preferences = getSharedPreferences("logined", MODE_PRIVATE);
+        String name = preferences.getString("logined", "");
+        Log.i("name", name);
+        if (Objects.equals(name, "")) {
+            this.setTitle("登录");
+            transaction = fm.beginTransaction();
+            transaction.replace(R.id.id_content, login);
+            transaction.commit();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "拒绝存储权限将会导致软件更新失败！", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }

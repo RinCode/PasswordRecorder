@@ -1,5 +1,6 @@
 package cc.tachi.passwordrecorder;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -8,14 +9,19 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.telecom.TelecomManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.ResultSet;
 import java.util.Objects;
 
 /**
@@ -61,7 +67,17 @@ public class FragmentLogin extends Fragment {
                             editor.putString("logined", userlogined);
                             editor.apply();
                             Toast.makeText(getActivity(),"登陆成功",Toast.LENGTH_SHORT).show();
+//                            nav_user.setText(user.getText().toString());
                             btnSubmit.setEnabled(false);
+
+                            getActivity().setTitle("登录");
+                            FragmentQuery query = new FragmentQuery();
+                            FragmentManager fm;
+                            android.support.v4.app.FragmentTransaction transaction;
+                            fm = getActivity().getSupportFragmentManager();
+                            transaction = fm.beginTransaction();
+                            transaction.replace(R.id.id_content, query);
+                            transaction.commit();
                         }
                     }
                     c.close();

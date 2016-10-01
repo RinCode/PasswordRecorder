@@ -18,6 +18,7 @@ import java.util.Objects;
 
 /**
  * Created by m on 2016/9/19.
+ *
  */
 public class FragmentDetail extends Fragment {
     private Button edit;
