@@ -6,8 +6,8 @@
     android:gravity="center_horizontal">
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center">
 
         <TableRow android:gravity="center">
@@ -21,8 +21,9 @@
 
             <EditText
                 android:id="@+id/site"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:singleLine="true" />
         </TableRow>
 
@@ -37,8 +38,9 @@
 
             <EditText
                 android:id="@+id/mail"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:singleLine="true" />
         </TableRow>
 
@@ -53,8 +55,9 @@
 
             <EditText
                 android:id="@+id/uname"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:singleLine="true" />
         </TableRow>
         <TableRow android:gravity="center">
@@ -68,8 +71,9 @@
 
             <EditText
                 android:id="@+id/upass"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:singleLine="true" />
         </TableRow>
         <TableRow android:gravity="center">
@@ -83,8 +87,9 @@
 
             <EditText
                 android:id="@+id/other"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:singleLine="true" />
         </TableRow>
 
@@ -101,8 +106,9 @@
             <EditText
                 android:visibility="gone"
                 android:id="@+id/seed"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:singleLine="true" />
         </TableRow>
         <TableRow android:gravity="center">

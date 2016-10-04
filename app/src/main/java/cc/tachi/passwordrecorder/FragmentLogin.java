@@ -34,6 +34,7 @@ public class FragmentLogin extends Fragment {
     private Button btnSubmit;
     private Button btnRegiste;
     private SQLiteDatabase db;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,9 +45,9 @@ public class FragmentLogin extends Fragment {
         btnRegiste = (Button) view.findViewById(R.id.registebtn);
         db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
         Cursor c = db.rawQuery("select * from user", null);
-        if (!c.moveToNext()){
+        if (!c.moveToNext()) {
             btnRegiste.setEnabled(true);
-        }else {
+        } else {
             btnRegiste.setEnabled(false);
         }
         return view;
@@ -59,16 +60,18 @@ public class FragmentLogin extends Fragment {
             public void onClick(View view) {
                 db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
                 Cursor c = db.rawQuery("select * from user", null);
+                int flag = 0;
                 if (c != null) {
                     while (c.moveToNext()) {
                         if (Objects.equals(user.getText().toString(), c.getString(c.getColumnIndex("user"))) && Objects.equals(MD5.encrypt(pass.getText().toString()), c.getString(c.getColumnIndex("password")))) {
-                            SharedPreferences.Editor editor = getActivity().getSharedPreferences("logined",getActivity().MODE_PRIVATE).edit();
+                            SharedPreferences.Editor editor = getActivity().getSharedPreferences("logined", getActivity().MODE_PRIVATE).edit();
                             String userlogined = "tachi";
                             editor.putString("logined", userlogined);
                             editor.apply();
-                            Toast.makeText(getActivity(),"登陆成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
 //                            nav_user.setText(user.getText().toString());
                             btnSubmit.setEnabled(false);
+                            flag = 1;
 
                             getActivity().setTitle("登录");
                             FragmentQuery query = new FragmentQuery();
@@ -83,20 +86,22 @@ public class FragmentLogin extends Fragment {
                     c.close();
                 }
                 db.close();
-                Toast.makeText(getActivity(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                if (flag == 0) {
+                    Toast.makeText(getActivity(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnRegiste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    db.execSQL("insert into user (user,password) values ('"+ user.getText().toString()+"','"+MD5.encrypt(pass.getText().toString())+"');");
-                    Toast.makeText(getActivity(),"注册成功",Toast.LENGTH_SHORT).show();
+                try {
+                    db.execSQL("insert into user (user,password) values ('" + user.getText().toString() + "','" + MD5.encrypt(pass.getText().toString()) + "');");
+                    Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
                     btnRegiste.setEnabled(false);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(),"注册失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });

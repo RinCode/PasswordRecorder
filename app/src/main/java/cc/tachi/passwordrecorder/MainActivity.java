@@ -33,11 +33,10 @@ public class MainActivity extends AppCompatActivity
     private FragmentLogin login;
     private FragmentQuery query;
     private FragmentAdd add;
+    private FragmentBar bar;
     private FragmentManager fm;
     private android.support.v4.app.FragmentTransaction transaction;
     private SharedPreferences preferences;
-    private ImageView nav_img;
-    private TextView nav_user;
     private Context context;
 
     @Override
@@ -75,23 +74,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //头像点击事件
-        View headerView = navigationView.getHeaderView(0);
-        nav_img = (ImageView) headerView.findViewById(R.id.imageView);
-        nav_user = (TextView) headerView.findViewById(R.id.user);
-        nav_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (logined()) {
-                    Toast.makeText(context, "已登录", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         fm = getSupportFragmentManager();
         query = new FragmentQuery();
         login = new FragmentLogin();
         add = new FragmentAdd();
+        bar = new FragmentBar();
         init();
     }
 
@@ -111,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 
         db.execSQL("create table if not exists user (id integer primary key autoincrement, user text not null , password text not null )");
         db.execSQL("create table if not exists data (id integer primary key autoincrement, site text not null , mail text not null , user text not null, pass text not null, other text not null )");
-
+        db.close();
 
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
@@ -152,20 +139,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show();
-            try {
-                String encryptedData = AESHelper.encrypt("123456", "mabao");
-                Log.v("EncryptDecrypt", "Encoded String " + encryptedData);
-                try {
-                    String decryptedData = AESHelper.decrypt("12345", encryptedData);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.v("info", "error");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            this.setTitle("备份和还原");
+            transaction = fm.beginTransaction();
+            transaction.replace(R.id.id_content,bar);
+            transaction.commit();
             return true;
         }
 
@@ -189,6 +166,10 @@ public class MainActivity extends AppCompatActivity
                 transaction.replace(R.id.id_content, add);
                 transaction.commit();
             }
+        }
+        if(id== R.id.nav_update){
+            Update update = new Update(context);
+            update.checkUpdate(true);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -218,7 +199,6 @@ public class MainActivity extends AppCompatActivity
     public boolean logined() {
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
-        Log.i("name", name);
         if (Objects.equals(name, "")) {
             this.setTitle("登录");
             transaction = fm.beginTransaction();

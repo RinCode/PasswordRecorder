@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:padding="20dp">
 
     <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center">
 
         <TableRow android:gravity="center">
 
             <TextView
                 android:id="@+id/seedlab"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="秘钥："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/seed"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:hint="秘钥"
                 android:singleLine="true" />
         </TableRow>
@@ -31,15 +32,16 @@
 
             <TextView
                 android:id="@+id/sitelab"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="网址："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/site"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:hint="网址"
                 android:singleLine="true" />
         </TableRow>
@@ -48,15 +50,16 @@
 
             <TextView
                 android:id="@+id/maillab"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="邮箱："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/mail"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:hint="邮箱"
                 android:singleLine="true" />
         </TableRow>
@@ -65,56 +68,63 @@
 
             <TextView
                 android:id="@+id/unamelab"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="用户名："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/uname"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:hint="用户名"
                 android:singleLine="true" />
         </TableRow>
+
         <TableRow android:gravity="center">
 
             <TextView
                 android:id="@+id/upasslab"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="密码："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/upass"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:hint="密码"
                 android:singleLine="true" />
         </TableRow>
+
         <TableRow android:gravity="center">
 
             <TextView
                 android:id="@+id/otherlab"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="备注："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/other"
-                android:layout_width="200dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:hint="备注"
                 android:singleLine="true" />
         </TableRow>
+
         <TableRow android:gravity="center">
+
             <Button
                 android:id="@+id/additem"
-                android:text="添加"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="添加" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

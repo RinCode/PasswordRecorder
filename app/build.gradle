@@ -8,8 +8,8 @@ android {
         applicationId "cc.tachi.passwordrecorder"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 2
-        versionName "0.2"
+        versionCode 4
+        versionName "0.4"
     }
     buildTypes {
         release {

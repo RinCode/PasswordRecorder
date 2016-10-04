@@ -36,6 +36,8 @@ import java.net.URL;
 
 /**
  * Created by m on 2016/9/24.
+ *
+ * http://www.jikexueyuan.com/course/1607_1.html?ss=1
  */
 public class Update {
 
@@ -46,12 +48,12 @@ public class Update {
     private String savePath;
     private int mProgress;
 
-    private boolean mIsCancel = false;
+    private boolean showMsg = false;
 
     private static final int DOWNLOADING = 1;
     private static final int DOWNLOAD_FINISH = 2;
 
-    private static final String PATH = "http://app.tachi.cc/version.html";
+    private static final String PATH = "http://app.tachi.cc/version.php";
 
     private String mVersion_code;
     private String mVersion_name;
@@ -75,8 +77,8 @@ public class Update {
 
                 if (isUpdate()) {
                     showNoticeDialog();
-                } else {
-                    Toast.makeText(mContext, "已是最新版本", Toast.LENGTH_SHORT).show();
+                } else if (showMsg){
+                    Toast.makeText(mContext, "当前为最新版本", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {
@@ -109,7 +111,10 @@ public class Update {
     /*
      * 检测软件是否需要更新
      */
-    public void checkUpdate() {
+    public void checkUpdate(boolean... msg) {
+        if (msg.length != 0 && msg[0]) {
+            showMsg = true;
+        }
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         JsonObjectRequest request = new JsonObjectRequest(PATH, null, new Response.Listener<JSONObject>() {
             @Override
@@ -123,6 +128,7 @@ public class Update {
             @Override
             public void onErrorResponse(VolleyError arg0) {
                 System.out.println(arg0.toString());
+                Toast.makeText(mContext,"网络异常",Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(request);
@@ -204,14 +210,14 @@ public class Update {
                         savePath = sdPath + "tachicc";
                         File dir = new File(savePath);
                         if (!dir.exists()) {
-                                dir.mkdirs();
+                            dir.mkdirs();
                         }
                         HttpURLConnection conn = (HttpURLConnection) new URL(mVersion_path).openConnection();
                         conn.connect();
                         InputStream is = conn.getInputStream();
                         int length = conn.getContentLength();
 
-                        File aplFile = new File(savePath, mVersion_name+".apk");
+                        File aplFile = new File(savePath, mVersion_name + ".apk");
                         FileOutputStream fos = new FileOutputStream(aplFile);
                         int count = 0;
                         byte[] buffer = new byte[1024];
@@ -238,7 +244,7 @@ public class Update {
     }
 
     protected void installAPK() {
-        File apkFile = new File(savePath, mVersion_name+".apk");
+        File apkFile = new File(savePath, mVersion_name + ".apk");
         if (!apkFile.exists())
             return;
 

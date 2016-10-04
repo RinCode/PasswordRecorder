@@ -4,5 +4,5 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="input_num_character">0123456789abcdefghijklmnopqrstuvwxyz</string>
-    <string name="action_settings">退出</string>
+    <string name="action_backupandrestore">备份/还原</string>
 </resources>

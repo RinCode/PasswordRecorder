@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single" >
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_query"
             android:icon="@android:drawable/ic_menu_search"
@@ -13,12 +13,18 @@
             android:title="添加" />
     </group>
 
+
     <item android:title="其他">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@android:drawable/ic_menu_preferences"
                 android:title="设置" />
+            <item
+                android:id="@+id/nav_update"
+                android:icon="@android:drawable/ic_menu_help"
+                android:title="检查更新" />
+
         </menu>
     </item>
 

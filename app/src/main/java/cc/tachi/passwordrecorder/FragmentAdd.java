@@ -66,6 +66,7 @@ public class FragmentAdd extends Fragment {
                         Toast.makeText(getActivity(), "添加失败", Toast.LENGTH_SHORT).show();
                     }
                 }
+                db.close();
             }
         });
         super.onActivityCreated(savedInstanceState);
