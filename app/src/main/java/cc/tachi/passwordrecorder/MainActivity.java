@@ -139,13 +139,22 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            this.setTitle("设置");
+//            if (logined()) {
+//                this.setTitle("设置");
+//                transaction = fm.beginTransaction();
+//                transaction.replace(R.id.id_content, setting);
+//                transaction.commit();
+//                return true;
+//            }
+            SharedPreferences.Editor editor = this.getSharedPreferences("logined", this.MODE_PRIVATE).edit();
+            editor.putString("logined", "");
+            editor.apply();
+            Toast.makeText(this,"已退出登录",Toast.LENGTH_SHORT).show();
+            this.setTitle("登录");
             transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, setting);
+            transaction.replace(R.id.id_content, login);
             transaction.commit();
-            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -165,13 +174,12 @@ public class MainActivity extends AppCompatActivity
                 transaction = fm.beginTransaction();
                 transaction.replace(R.id.id_content, add);
                 transaction.commit();
+            } else if (id == R.id.nav_setting) {
+                this.setTitle("设置");
+                transaction = fm.beginTransaction();
+                transaction.replace(R.id.id_content, setting);
+                transaction.commit();
             }
-        }
-        if (id == R.id.nav_setting) {
-            this.setTitle("设置");
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, setting);
-            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -202,6 +210,7 @@ public class MainActivity extends AppCompatActivity
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
+            Toast.makeText(this,"请先登录",Toast.LENGTH_SHORT).show();
             this.setTitle("登录");
             transaction = fm.beginTransaction();
             transaction.replace(R.id.id_content, login);

@@ -1,62 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:gravity="center">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-        <TableRow android:gravity="center">
-            <TextView
-                android:id="@+id/usernamelab"
+            <com.eftimoff.patternview.PatternView
+                xmlns:patternview="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/patternView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="用户名："
-                />
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:singleLine="true"
-                android:digits="@string/input_num_character"
-                android:hint="用户名"/>
-        </TableRow>
-        <TableRow android:gravity="center">
-            <TextView
-                android:id="@+id/passwordlab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="密码："
-                />
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:singleLine="true"
-                android:digits="@string/input_num_character"
-                android:hint="密码"
-                android:inputType="textPassword" />
-        </TableRow>
-        <TableRow android:gravity="center">
-            <Button
-                android:id="@+id/loginbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="登录"/>
-            <Button
-                android:id="@+id/registebtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="注册"/>
-        </TableRow>
+                patternview:pathColor="@color/primary_dark_material_light"
+                patternview:circleColor="@color/highlighted_text_material_light"
+                patternview:dotColor="@color/highlighted_text_material_light"
+                patternview:gridRows="3"
+                patternview:gridColumns="3"/>
 
-    </TableLayout>
-
-</LinearLayout>
+</RelativeLayout>

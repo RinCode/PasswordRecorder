@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.eftimoff.patternview.PatternView;
+
 import java.sql.ResultSet;
 import java.util.Objects;
 
@@ -29,79 +31,80 @@ import java.util.Objects;
  */
 public class FragmentLogin extends Fragment {
     private SharedPreferences preferences;
-    private EditText user;
-    private EditText pass;
-    private Button btnSubmit;
-    private Button btnRegiste;
     private SQLiteDatabase db;
+    private PatternView patternView;
+    private String patternString;
+    private String temp;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_login, container, false);
-        user = (EditText) view.findViewById(R.id.username);
-        pass = (EditText) view.findViewById(R.id.password);
-        btnSubmit = (Button) view.findViewById(R.id.loginbtn);
-        btnRegiste = (Button) view.findViewById(R.id.registebtn);
         db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
+        patternView = (PatternView) view.findViewById(R.id.patternView);
+        patternView.setTactileFeedbackEnabled(false);
         Cursor c = db.rawQuery("select * from user", null);
         if (!c.moveToNext()) {
-            btnRegiste.setEnabled(true);
-        } else {
-            btnRegiste.setEnabled(false);
+            Toast.makeText(getActivity(), "首次使用需设定解锁图案", Toast.LENGTH_SHORT).show();
         }
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        patternView.setOnPatternDetectedListener(new PatternView.OnPatternDetectedListener() {
             @Override
-            public void onClick(View view) {
-                db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
+            public void onPatternDetected() {
                 Cursor c = db.rawQuery("select * from user", null);
-                int flag = 0;
-                if (c != null) {
-                    while (c.moveToNext()) {
-                        if (Objects.equals(user.getText().toString(), c.getString(c.getColumnIndex("user"))) && Objects.equals(MD5.encrypt(pass.getText().toString()), c.getString(c.getColumnIndex("password")))) {
-                            SharedPreferences.Editor editor = getActivity().getSharedPreferences("logined", getActivity().MODE_PRIVATE).edit();
-                            String userlogined = "tachi";
-                            editor.putString("logined", userlogined);
-                            editor.apply();
-                            Toast.makeText(getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
-//                            nav_user.setText(user.getText().toString());
-                            btnSubmit.setEnabled(false);
-                            flag = 1;
-
-                            getActivity().setTitle("查询");
-                            FragmentQuery query = new FragmentQuery();
-                            FragmentManager fm;
-                            android.support.v4.app.FragmentTransaction transaction;
-                            fm = getActivity().getSupportFragmentManager();
-                            transaction = fm.beginTransaction();
-                            transaction.replace(R.id.id_content, query);
-                            transaction.commit();
-                        }
+                if (!c.moveToNext()) {
+                    if (patternString == null) {
+                        patternString = patternView.getPatternString();
+                        Toast.makeText(getActivity(), "请重复一次", Toast.LENGTH_SHORT).show();
+                        patternView.clearPattern();
+                        return;
                     }
+                    if (patternString.equals(patternView.getPatternString())) {
+                        patternView.clearPattern();
+                        try {
+                            db.execSQL("insert into user (user,password) values ('', '" + MD5.encrypt(patternString) + "');");
+                            Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), "两次不匹配", Toast.LENGTH_SHORT).show();
+                        patternView.clearPattern();
+                        patternString = null;
+                    }
+                } else {
                     c.close();
-                }
-                db.close();
-                if (flag == 0) {
-                    Toast.makeText(getActivity(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                    db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
+                    c = db.rawQuery("select * from user", null);
+                    if (c != null) {
+                        while (c.moveToNext()) {
+                            if (Objects.equals(MD5.encrypt(patternView.getPatternString()), c.getString(c.getColumnIndex("password")))) {
+                                SharedPreferences.Editor editor = getActivity().getSharedPreferences("logined", getActivity().MODE_PRIVATE).edit();
+                                String userlogined = "tachi";
+                                editor.putString("logined", userlogined);
+                                editor.apply();
+                                Toast.makeText(getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
+                                patternView.clearPattern();
 
-        btnRegiste.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    db.execSQL("insert into user (user,password) values ('" + user.getText().toString() + "','" + MD5.encrypt(pass.getText().toString()) + "');");
-                    Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
-                    btnRegiste.setEnabled(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_SHORT).show();
+                                getActivity().setTitle("查询");
+                                FragmentQuery query = new FragmentQuery();
+                                FragmentManager fm;
+                                android.support.v4.app.FragmentTransaction transaction;
+                                fm = getActivity().getSupportFragmentManager();
+                                transaction = fm.beginTransaction();
+                                transaction.replace(R.id.id_content, query);
+                                transaction.commit();
+                            }else {
+                                Toast.makeText(getActivity(), "图案错误", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        c.close();
+                    }
                 }
             }
         });
