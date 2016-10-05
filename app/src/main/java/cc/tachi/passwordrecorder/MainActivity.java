@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentLogin login;
     private FragmentQuery query;
     private FragmentAdd add;
-    private FragmentBar bar;
+    private FragmentSetting setting;
     private FragmentManager fm;
     private android.support.v4.app.FragmentTransaction transaction;
     private SharedPreferences preferences;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         query = new FragmentQuery();
         login = new FragmentLogin();
         add = new FragmentAdd();
-        bar = new FragmentBar();
+        setting = new FragmentSetting();
         init();
     }
 
@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            this.setTitle("备份和还原");
+            this.setTitle("设置");
             transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content,bar);
+            transaction.replace(R.id.id_content, setting);
             transaction.commit();
             return true;
         }
@@ -167,9 +167,11 @@ public class MainActivity extends AppCompatActivity
                 transaction.commit();
             }
         }
-        if(id== R.id.nav_update){
-            Update update = new Update(context);
-            update.checkUpdate(true);
+        if (id == R.id.nav_setting) {
+            this.setTitle("设置");
+            transaction = fm.beginTransaction();
+            transaction.replace(R.id.id_content, setting);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -185,16 +187,16 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if(keyCode == KeyEvent.KEYCODE_BACK ){
-//            this.setTitle("查询");
-//            transaction = fm.beginTransaction();
-//            transaction.replace(R.id.id_content, query);
-//            transaction.commit();
-//        }
-//        return false;
-//    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(logined()){
+            this.setTitle("查询");
+            transaction = fm.beginTransaction();
+            transaction.replace(R.id.id_content, query);
+            transaction.commit();
+        }
+        return false;
+    }
 
     public boolean logined() {
         preferences = getSharedPreferences("logined", MODE_PRIVATE);

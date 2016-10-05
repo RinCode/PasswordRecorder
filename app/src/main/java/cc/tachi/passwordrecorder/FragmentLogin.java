@@ -73,7 +73,7 @@ public class FragmentLogin extends Fragment {
                             btnSubmit.setEnabled(false);
                             flag = 1;
 
-                            getActivity().setTitle("登录");
+                            getActivity().setTitle("查询");
                             FragmentQuery query = new FragmentQuery();
                             FragmentManager fm;
                             android.support.v4.app.FragmentTransaction transaction;
