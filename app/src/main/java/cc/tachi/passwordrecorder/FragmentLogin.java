@@ -28,6 +28,8 @@ import java.util.Objects;
 
 /**
  * Created by m on 2016/9/19.
+ *
+ * https://github.com/geftimov/android-patternview/
  */
 public class FragmentLogin extends Fragment {
     private SharedPreferences preferences;
