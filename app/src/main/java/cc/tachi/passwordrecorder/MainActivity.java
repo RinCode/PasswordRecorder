@@ -114,16 +114,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -149,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor editor = this.getSharedPreferences("logined", this.MODE_PRIVATE).edit();
             editor.putString("logined", "");
             editor.apply();
-            Toast.makeText(this,"已退出登录",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
             this.setTitle("登录");
             transaction = fm.beginTransaction();
             transaction.replace(R.id.id_content, login);
@@ -187,30 +177,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onDestroy() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
-        super.onDestroy();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(logined()){
-            this.setTitle("查询");
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, query);
-            transaction.commit();
-        }
-        return false;
-    }
-
     public boolean logined() {
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
-            Toast.makeText(this,"请先登录",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
             this.setTitle("登录");
             transaction = fm.beginTransaction();
             transaction.replace(R.id.id_content, login);
@@ -231,4 +202,28 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK: {
+                if (event.isLongPress()) {
+                    System.exit(0);
+                    return true;
+                }else {
+                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    }else if (logined()) {
+                        this.setTitle("查询");
+                        transaction = fm.beginTransaction();
+                        transaction.replace(R.id.id_content, query);
+                        transaction.commit();
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
