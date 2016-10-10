@@ -216,10 +216,7 @@ public class MainActivity extends AppCompatActivity
         int keyCode = event.getKeyCode();
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK: {
-                if (event.isLongPress()) {
-                    System.exit(0);
-                    return true;
-                }else {
+                if (!query.isVisible()||login.isVisible()){
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                     if (drawer.isDrawerOpen(GravityCompat.START)) {
                         drawer.closeDrawer(GravityCompat.START);
@@ -229,6 +226,7 @@ public class MainActivity extends AppCompatActivity
                         transaction.replace(R.id.id_content, query);
                         transaction.commit();
                     }
+                    return true;
                 }
             }
         }
