@@ -84,22 +84,29 @@ public class MainActivity extends AppCompatActivity
 
     private void init() {
 
+        //权限申请
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
+        //
 
+        //检查更新
         Update update = new Update(context);
         update.checkUpdate();
+        //
 
+
+        //创建/读取数据库
         SQLiteDatabase db = openOrCreateDatabase("tachi.db", MODE_PRIVATE, null);
 
         db.execSQL("create table if not exists user (id integer primary key autoincrement, user text not null , password text not null )");
         db.execSQL("create table if not exists data (id integer primary key autoincrement, site text not null , mail text not null , user text not null, pass text not null, other text not null )");
         db.close();
+        //
 
+        //登录判断
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
@@ -111,6 +118,7 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.id_content, query);
             transaction.commit();
         }
+        //
     }
 
     @Override
@@ -224,6 +232,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
-        return true;
+        return super.dispatchKeyEvent(event);
     }
 }
