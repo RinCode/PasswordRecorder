@@ -20,13 +20,15 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
+
+import cc.tachi.passwordrecorder.Fragment.FragmentAdd;
+import cc.tachi.passwordrecorder.Fragment.FragmentLogin;
+import cc.tachi.passwordrecorder.Fragment.FragmentQuery;
+import cc.tachi.passwordrecorder.Fragment.FragmentSetting;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,8 +53,6 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 preferences = getSharedPreferences("logined", MODE_PRIVATE);
                 String name = preferences.getString("logined", "");
                 Log.i("name", name);
@@ -137,13 +137,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            if (logined()) {
-//                this.setTitle("设置");
-//                transaction = fm.beginTransaction();
-//                transaction.replace(R.id.id_content, setting);
-//                transaction.commit();
-//                return true;
-//            }
             SharedPreferences.Editor editor = this.getSharedPreferences("logined", this.MODE_PRIVATE).edit();
             editor.putString("logined", "");
             editor.apply();

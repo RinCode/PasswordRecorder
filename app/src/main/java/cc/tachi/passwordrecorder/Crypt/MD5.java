@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Crypt;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

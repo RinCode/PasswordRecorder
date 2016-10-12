@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Fragment;
 
 import android.annotation.TargetApi;
 import android.database.Cursor;
@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import cc.tachi.passwordrecorder.Crypt.AESHelper;
+import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/17.

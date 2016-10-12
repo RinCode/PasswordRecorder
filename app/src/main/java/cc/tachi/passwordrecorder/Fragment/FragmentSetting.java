@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import cc.tachi.passwordrecorder.R;
+import cc.tachi.passwordrecorder.Update;
 
 /**
  * Created by m on 2016/10/5.

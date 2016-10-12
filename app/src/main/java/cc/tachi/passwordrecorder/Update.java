@@ -1,6 +1,5 @@
 package cc.tachi.passwordrecorder;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,10 +10,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.text.style.SubscriptSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -93,13 +88,10 @@ public class Update {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case DOWNLOADING:
-                    // 设置进度条
                     mProgressBar.setProgress(mProgress);
                     break;
                 case DOWNLOAD_FINISH:
-                    // 隐藏当前下载对话框
                     mDownloadDialog.dismiss();
-                    // 安装 APK 文件
                     installAPK();
                     break;
             }
@@ -127,7 +119,6 @@ public class Update {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError arg0) {
-                System.out.println(arg0.toString());
                 Toast.makeText(mContext,"网络异常",Toast.LENGTH_SHORT).show();
             }
         });
@@ -162,9 +153,7 @@ public class Update {
         builder.setPositiveButton("更新", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // 隐藏当前对话框
                 dialog.dismiss();
-                // 显示下载对话框
                 showDownloadDialog();
             }
         });
@@ -172,7 +161,6 @@ public class Update {
         builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // 隐藏当前对话框
                 dialog.dismiss();
                 System.exit(0);
             }
@@ -247,7 +235,6 @@ public class Update {
         File apkFile = new File(savePath, mVersion_name + ".apk");
         if (!apkFile.exists())
             return;
-
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = Uri.parse("file://" + apkFile.toString());
         intent.setDataAndType(uri, "application/vnd.android.package-archive");

@@ -1,6 +1,5 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,13 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
+import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/10/4.

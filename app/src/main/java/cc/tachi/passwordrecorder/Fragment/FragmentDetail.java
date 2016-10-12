@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Fragment;
 
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
+
+import cc.tachi.passwordrecorder.Crypt.AESHelper;
+import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/19.

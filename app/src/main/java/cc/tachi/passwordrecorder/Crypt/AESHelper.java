@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Crypt;
 
 /**
  * Created by m on 2016/9/20.

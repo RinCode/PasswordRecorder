@@ -1,30 +1,23 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.telecom.TelecomManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eftimoff.patternview.PatternView;
 
-import java.sql.ResultSet;
 import java.util.Objects;
+
+import cc.tachi.passwordrecorder.Crypt.MD5;
+import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/19.
