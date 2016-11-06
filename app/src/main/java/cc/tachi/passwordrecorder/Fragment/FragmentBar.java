@@ -58,7 +58,7 @@ public class FragmentBar extends Fragment{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String newPath = "data/data/cc.tachi.passwordrecorder/databases/" + DATABASE_NAME;
-                                String oldPath = Environment.getExternalStorageDirectory() + "/tachicc/" + DATABASE_NAME;
+                                String oldPath = Environment.getExternalStorageDirectory() + "/" + DATABASE_NAME;
                                 copyFile(oldPath, newPath,0);
                             }
                         })
@@ -101,7 +101,7 @@ public class FragmentBar extends Fragment{
                         fs.write(buffer, 0, byteread);
                     }
                     inStream.close();
-                    Toast.makeText(getActivity(), "文件已保存到/tachicc/tachi.db", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "文件已保存到/tachi.db", Toast.LENGTH_SHORT).show();
                 }
             }else {
                 if (!newfile.exists()) {

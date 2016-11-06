@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity
                 Log.i("name", name);
                 if (!Objects.equals(name, "")) {
                     setTitle("添加");
-                    transaction = fm.beginTransaction();
-                    transaction.replace(R.id.id_content, add);
-                    transaction.commit();
+                    fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, add).commit();;
                 }
             }
         });
@@ -110,13 +108,9 @@ public class MainActivity extends AppCompatActivity
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, login);
-            transaction.commit();
+            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
         } else {
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, query);
-            transaction.commit();
+            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, query).commit();
         }
         //
     }
@@ -142,9 +136,7 @@ public class MainActivity extends AppCompatActivity
             editor.apply();
             Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
             this.setTitle("登录");
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, login);
-            transaction.commit();
+            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -157,19 +149,13 @@ public class MainActivity extends AppCompatActivity
         if (logined()) {
             if (id == R.id.nav_query) {
                 this.setTitle("查询");
-                transaction = fm.beginTransaction();
-                transaction.replace(R.id.id_content, query);
-                transaction.commit();
+                fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, query).commit();
             } else if (id == R.id.nav_add) {
                 this.setTitle("添加");
-                transaction = fm.beginTransaction();
-                transaction.replace(R.id.id_content, add);
-                transaction.commit();
+                fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, add).commit();
             } else if (id == R.id.nav_setting) {
                 this.setTitle("设置");
-                transaction = fm.beginTransaction();
-                transaction.replace(R.id.id_content, setting);
-                transaction.commit();
+                fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, setting).commit();
             }
         }
 
@@ -184,9 +170,7 @@ public class MainActivity extends AppCompatActivity
         if (Objects.equals(name, "")) {
             Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
             this.setTitle("登录");
-            transaction = fm.beginTransaction();
-            transaction.replace(R.id.id_content, login);
-            transaction.commit();
+            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
             return false;
         } else {
             return true;
@@ -201,28 +185,5 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "拒绝存储权限将会导致软件更新失败！", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        int keyCode = event.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK: {
-                if (!query.isVisible()||login.isVisible()){
-                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                    if (drawer.isDrawerOpen(GravityCompat.START)) {
-                        drawer.closeDrawer(GravityCompat.START);
-                    }else if (logined()) {
-                        this.setTitle("查询");
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.id_content, query);
-                        transaction.commit();
-                    }
-                    return true;
-                }
-            }
-        }
-        return super.dispatchKeyEvent(event);
     }
 }

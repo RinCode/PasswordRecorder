@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">密码本</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="input_num_character">0123456789abcdefghijklmnopqrstuvwxyz</string>

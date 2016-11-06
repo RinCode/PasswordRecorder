@@ -48,9 +48,7 @@ public class FragmentSetting extends Fragment {
                         getActivity().setTitle("备份和还原");
                         bar = new FragmentBar();
                         fm = getActivity().getSupportFragmentManager();
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.id_content, bar);
-                        transaction.commit();
+                        fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, bar).commit();
                         break;
                     case 1:
                         Update update = new Update(getActivity());
@@ -60,9 +58,7 @@ public class FragmentSetting extends Fragment {
                         getActivity().setTitle("关于");
                         about = new FragmentAbout();
                         fm = getActivity().getSupportFragmentManager();
-                        transaction = fm.beginTransaction();
-                        transaction.replace(R.id.id_content, about);
-                        transaction.commit();
+                        fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, about).commit();
                 }
             }
         });

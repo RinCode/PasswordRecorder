@@ -91,9 +91,7 @@ public class FragmentLogin extends Fragment {
                                 FragmentManager fm;
                                 android.support.v4.app.FragmentTransaction transaction;
                                 fm = getActivity().getSupportFragmentManager();
-                                transaction = fm.beginTransaction();
-                                transaction.replace(R.id.id_content, query);
-                                transaction.commit();
+                                fm.beginTransaction().replace(R.id.id_content, query).commit();
                             }else {
                                 Toast.makeText(getActivity(), "图案错误", Toast.LENGTH_SHORT).show();
                             }

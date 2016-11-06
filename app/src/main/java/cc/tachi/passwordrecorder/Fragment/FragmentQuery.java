@@ -88,10 +88,8 @@ public class FragmentQuery extends Fragment {
                     }
                     fm = getActivity().getSupportFragmentManager();
                     detail = new FragmentDetail();
-                    transaction = fm.beginTransaction();
                     detail.setArguments(bundle);
-                    transaction.replace(R.id.id_content, detail);
-                    transaction.commit();
+                    fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, detail).commit();
                 } else {
                     Toast.makeText(getActivity(), "无项目", Toast.LENGTH_SHORT).show();
                 }
