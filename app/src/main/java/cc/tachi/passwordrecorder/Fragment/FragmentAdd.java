@@ -1,7 +1,13 @@
 package cc.tachi.passwordrecorder.Fragment;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,16 +16,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.Toast;
+
+import com.eftimoff.patternview.PatternView;
 
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
+import cc.tachi.passwordrecorder.GeneratePasswd;
 import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/19.
+ *
  */
 public class FragmentAdd extends Fragment {
     private EditText site;
@@ -29,7 +41,14 @@ public class FragmentAdd extends Fragment {
     private EditText other;
     private EditText seed;
     private Button submit;
+    private Button generate;
     private SQLiteDatabase db;
+    private TableRow g1;
+    private TableRow g2;
+    private CheckBox num;
+    private CheckBox lletter;
+    private CheckBox hletter;
+    private CheckBox symbol;
 
     @Nullable
     @Override
@@ -42,6 +61,13 @@ public class FragmentAdd extends Fragment {
         pass = (EditText) view.findViewById(R.id.upass);
         other = (EditText) view.findViewById(R.id.other);
         submit = (Button) view.findViewById(R.id.additem);
+        generate = (Button) view.findViewById(R.id.generate);
+        g1 = (TableRow) view.findViewById(R.id.g1);
+        g2 = (TableRow) view.findViewById(R.id.g2);
+        num = (CheckBox) view.findViewById(R.id.checkBoxNum);
+        lletter = (CheckBox) view.findViewById(R.id.checkBoxLLetter);
+        hletter = (CheckBox) view.findViewById(R.id.checkBoxHLetter);
+        symbol = (CheckBox) view.findViewById(R.id.checkBoxSymbol);
         return view;
     }
 
@@ -69,6 +95,44 @@ public class FragmentAdd extends Fragment {
                     }
                 }
                 db.close();
+            }
+        });
+        generate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(generate.getText().equals("生成")){
+                    g1.setVisibility(View.VISIBLE);
+                    g2.setVisibility(View.VISIBLE);
+                    pass.setTextColor(Color.BLUE);
+                    pass.setHintTextColor(Color.BLUE);
+                    pass.setHint("填入长度");
+                    generate.setText("确定");
+                }else {
+                    int method=0;
+                    if(num.isChecked())
+                        method+=1;
+                    if(lletter.isChecked())
+                        method+=2;
+                    if(hletter.isChecked())
+                        method+=4;
+                    if(symbol.isChecked())
+                        method+=8;
+                    GeneratePasswd generatePasswd = new GeneratePasswd();
+                    String result;
+                    try{
+                        int newlength = Integer.parseInt(pass.getText().toString());
+                        if(newlength<20) {
+                            result = generatePasswd.generate(newlength, method);
+                            pass.setText(result);
+                        }else {
+                            pass.setText("");
+                            pass.setHint("长度太长");
+                        }
+                    }catch (Exception e) {
+                        pass.setText("");
+                        pass.setHint("填入长度");
+                    }
+                }
             }
         });
         super.onActivityCreated(savedInstanceState);

@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
-            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
+            fm.beginTransaction().replace(R.id.id_content, login).commit();
         } else {
-            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, query).commit();
+            fm.beginTransaction().replace(R.id.id_content, query).commit();
         }
         //
     }
@@ -135,8 +135,10 @@ public class MainActivity extends AppCompatActivity
             editor.putString("logined", "");
             editor.apply();
             Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager=getSupportFragmentManager();//清除回退stack
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             this.setTitle("登录");
-            fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
+            fm.beginTransaction().replace(R.id.id_content, login).commit();
         }
         return super.onOptionsItemSelected(item);
     }

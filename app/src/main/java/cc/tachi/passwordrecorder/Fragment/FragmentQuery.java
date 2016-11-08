@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
+import cc.tachi.passwordrecorder.GeneratePasswd;
 import cc.tachi.passwordrecorder.R;
 
 /**
@@ -98,9 +99,14 @@ public class FragmentQuery extends Fragment {
         querybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                querycontent.clearFocus();
                 datalist.clear();
-                Cursor c = db.rawQuery("select * from data where site like '%" + querycontent.getText().toString() + "%'", null);
+                Cursor c;
+                if(spinner.getSelectedItemPosition()==0){
+                    c = db.rawQuery("select * from data where site like '%" + querycontent.getText().toString() + "%'", null);
+                }
+                else {
+                    c = db.rawQuery("select * from data where mail like '%" + querycontent.getText().toString() + "%'", null);
+                }
                 if (c != null) {
                     while (c.moveToNext()) {
                         final HashMap<String, Object> map = new HashMap<String, Object>();
