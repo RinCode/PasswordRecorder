@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
-import cc.tachi.passwordrecorder.GeneratePasswd;
 import cc.tachi.passwordrecorder.R;
 
 /**
@@ -48,6 +47,7 @@ public class FragmentQuery extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_query, container, false);
+        getActivity().setTitle("查询");
         querybtn = (Button) view.findViewById(R.id.query);
         querycontent = (EditText) view.findViewById(R.id.querytype);
         seed = (EditText) view.findViewById(R.id.seed);

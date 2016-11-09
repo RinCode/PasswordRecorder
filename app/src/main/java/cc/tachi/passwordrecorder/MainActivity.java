@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity
                 String name = preferences.getString("logined", "");
                 Log.i("name", name);
                 if (!Objects.equals(name, "")) {
-                    setTitle("添加");
                     fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, add).commit();;
                 }
             }
@@ -137,7 +136,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager=getSupportFragmentManager();//清除回退stack
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            this.setTitle("登录");
             fm.beginTransaction().replace(R.id.id_content, login).commit();
         }
         return super.onOptionsItemSelected(item);
@@ -150,13 +148,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (logined()) {
             if (id == R.id.nav_query) {
-                this.setTitle("查询");
                 fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, query).commit();
             } else if (id == R.id.nav_add) {
-                this.setTitle("添加");
                 fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, add).commit();
             } else if (id == R.id.nav_setting) {
-                this.setTitle("设置");
                 fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, setting).commit();
             }
         }
@@ -171,7 +166,6 @@ public class MainActivity extends AppCompatActivity
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
             Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
-            this.setTitle("登录");
             fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
             return false;
         } else {

@@ -54,6 +54,7 @@ public class FragmentAdd extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_add, container, false);
+        getActivity().setTitle("添加");
         seed = (EditText) view.findViewById(R.id.seed);
         site = (EditText) view.findViewById(R.id.site);
         mail = (EditText) view.findViewById(R.id.mail);

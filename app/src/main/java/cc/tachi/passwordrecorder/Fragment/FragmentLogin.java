@@ -25,16 +25,15 @@ import cc.tachi.passwordrecorder.R;
  * https://github.com/geftimov/android-patternview/
  */
 public class FragmentLogin extends Fragment {
-    private SharedPreferences preferences;
     private SQLiteDatabase db;
     private PatternView patternView;
     private String patternString;
-    private String temp;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_login, container, false);
+        getActivity().setTitle("登录");
         db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
         patternView = (PatternView) view.findViewById(R.id.patternView);
         patternView.setTactileFeedbackEnabled(false);

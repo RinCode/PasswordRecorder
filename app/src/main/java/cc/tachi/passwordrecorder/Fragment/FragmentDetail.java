@@ -52,6 +52,7 @@ public class FragmentDetail extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_detail, container, false);
+        getActivity().setTitle("详细信息");
         db = getActivity().openOrCreateDatabase("tachi.db", getActivity().MODE_PRIVATE, null);
         edit = (Button) view.findViewById(R.id.edititem);
         submit = (Button) view.findViewById(R.id.submitedit);

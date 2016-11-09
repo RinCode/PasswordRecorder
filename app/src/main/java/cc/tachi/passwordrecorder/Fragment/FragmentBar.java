@@ -32,6 +32,7 @@ public class FragmentBar extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_backupandrestore, container, false);
+        getActivity().setTitle("备份和还原");
         backup= (Button) view.findViewById(R.id.backup);
         restore = (Button) view.findViewById(R.id.restore);
         return view;
