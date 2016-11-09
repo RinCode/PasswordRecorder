@@ -2,6 +2,7 @@ package cc.tachi.passwordrecorder.Fragment;
 
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
+import cc.tachi.passwordrecorder.GeneratePasswd;
 import cc.tachi.passwordrecorder.R;
 
 /**
@@ -36,6 +40,13 @@ public class FragmentDetail extends Fragment {
     private TextView seedlab;
     private Bundle bundle;
     private SQLiteDatabase db;
+    private TableRow g1;
+    private TableRow g2;
+    private CheckBox num;
+    private CheckBox lletter;
+    private CheckBox hletter;
+    private CheckBox symbol;
+    private Button generate;
 
     @Nullable
     @Override
@@ -63,6 +74,14 @@ public class FragmentDetail extends Fragment {
         user.setText(bundle.getString("user"));
         pass.setText(bundle.getString("pass"));
         other.setText(bundle.getString("other"));
+        generate = (Button) view.findViewById(R.id.generate);
+        g1 = (TableRow) view.findViewById(R.id.g1);
+        g2 = (TableRow) view.findViewById(R.id.g2);
+        num = (CheckBox) view.findViewById(R.id.checkBoxNum);
+        lletter = (CheckBox) view.findViewById(R.id.checkBoxLLetter);
+        hletter = (CheckBox) view.findViewById(R.id.checkBoxHLetter);
+        symbol = (CheckBox) view.findViewById(R.id.checkBoxSymbol);
+        generate.setVisibility(View.GONE);
         return view;
     }
 
@@ -74,6 +93,7 @@ public class FragmentDetail extends Fragment {
                 if (Objects.equals(pass.getText().toString(), "秘钥错误")) {
                     Toast.makeText(getActivity(), "秘钥错误，无权更改", Toast.LENGTH_SHORT).show();
                 } else {
+                    seed.setText(bundle.getString("key"));
                     site.setEnabled(true);
                     mail.setEnabled(true);
                     user.setEnabled(true);
@@ -84,6 +104,7 @@ public class FragmentDetail extends Fragment {
                     delete.setVisibility(View.GONE);
                     seedlab.setVisibility(View.VISIBLE);
                     seed.setVisibility(View.VISIBLE);
+                    generate.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -103,13 +124,17 @@ public class FragmentDetail extends Fragment {
                                     submit.setVisibility(View.GONE);
                                     delete.setVisibility(View.VISIBLE);
                                     edit.setVisibility(View.VISIBLE);
+                                    generate.setVisibility(View.GONE);
                                     site.setEnabled(false);
                                     mail.setEnabled(false);
                                     user.setEnabled(false);
                                     pass.setEnabled(false);
                                     other.setEnabled(false);
+                                    g1.setVisibility(View.GONE);
+                                    g2.setVisibility(View.GONE);
                                     seed.setVisibility(View.GONE);
                                     seedlab.setVisibility(View.GONE);
+                                    pass.setTextColor(Color.BLACK);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     Toast.makeText(getActivity(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -143,6 +168,7 @@ public class FragmentDetail extends Fragment {
                                         Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
                                         delete.setVisibility(View.GONE);
                                         edit.setVisibility(View.GONE);
+                                        generate.setVisibility(View.GONE);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                         Toast.makeText(getActivity(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -156,6 +182,45 @@ public class FragmentDetail extends Fragment {
                                     Toast.makeText(getActivity(), "已取消", Toast.LENGTH_SHORT).show();
                                 }
                             }).show();
+                }
+            }
+        });
+
+        generate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (generate.getText().equals("生成")) {
+                    g1.setVisibility(View.VISIBLE);
+                    g2.setVisibility(View.VISIBLE);
+                    pass.setTextColor(Color.BLUE);
+                    pass.setHintTextColor(Color.BLUE);
+                    pass.setHint("填入长度");
+                    generate.setText("确定");
+                } else {
+                    int method = 0;
+                    if (num.isChecked())
+                        method += 1;
+                    if (lletter.isChecked())
+                        method += 2;
+                    if (hletter.isChecked())
+                        method += 4;
+                    if (symbol.isChecked())
+                        method += 8;
+                    GeneratePasswd generatePasswd = new GeneratePasswd();
+                    String result;
+                    try {
+                        int newlength = Integer.parseInt(pass.getText().toString());
+                        if (newlength < 20) {
+                            result = generatePasswd.generate(newlength, method);
+                            pass.setText(result);
+                        } else {
+                            pass.setText("");
+                            pass.setHint("长度太长");
+                        }
+                    } catch (Exception e) {
+                        pass.setText("");
+                        pass.setHint("填入长度");
+                    }
                 }
             }
         });

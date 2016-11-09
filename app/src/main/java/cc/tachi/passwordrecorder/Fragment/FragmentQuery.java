@@ -82,6 +82,7 @@ public class FragmentQuery extends Fragment {
                             } catch (Exception e) {
                                 password = "秘钥错误";
                             }
+                            bundle.putString("key",seed.getText().toString());
                             bundle.putString("pass", password);
                             bundle.putString("other", c.getString(c.getColumnIndex("other")));
                         }
