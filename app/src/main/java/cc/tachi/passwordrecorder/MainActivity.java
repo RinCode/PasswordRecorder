@@ -55,9 +55,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 preferences = getSharedPreferences("logined", MODE_PRIVATE);
                 String name = preferences.getString("logined", "");
-                Log.i("name", name);
                 if (!Objects.equals(name, "")) {
-                    fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, add).commit();;
+                    fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, query).commit();;
                 }
             }
         });
