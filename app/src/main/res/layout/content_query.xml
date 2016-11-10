@@ -35,6 +35,7 @@
                             android:layout_weight="1"
                             android:layout_height="fill_parent"
                             android:layout_width="match_parent"
+                            android:inputType="textPassword"
                             android:hint="秘钥"/>
 
                         <Button
