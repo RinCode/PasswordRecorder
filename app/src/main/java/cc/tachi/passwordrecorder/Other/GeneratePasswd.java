@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Other;
 
 import java.util.Random;
 

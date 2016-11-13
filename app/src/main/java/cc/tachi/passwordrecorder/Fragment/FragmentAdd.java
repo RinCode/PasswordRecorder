@@ -1,11 +1,6 @@
 package cc.tachi.passwordrecorder.Fragment;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,12 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import com.eftimoff.patternview.PatternView;
-
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
-import cc.tachi.passwordrecorder.GeneratePasswd;
+import cc.tachi.passwordrecorder.Other.GeneratePasswd;
 import cc.tachi.passwordrecorder.Other.PasswdStrength;
 import cc.tachi.passwordrecorder.R;
 

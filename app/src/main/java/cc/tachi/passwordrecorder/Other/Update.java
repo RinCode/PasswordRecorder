@@ -1,4 +1,4 @@
-package cc.tachi.passwordrecorder;
+package cc.tachi.passwordrecorder.Other;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -28,6 +28,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/24.

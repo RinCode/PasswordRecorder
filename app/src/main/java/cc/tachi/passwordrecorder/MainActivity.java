@@ -16,12 +16,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -30,6 +27,7 @@ import cc.tachi.passwordrecorder.Fragment.FragmentAdd;
 import cc.tachi.passwordrecorder.Fragment.FragmentLogin;
 import cc.tachi.passwordrecorder.Fragment.FragmentQuery;
 import cc.tachi.passwordrecorder.Fragment.FragmentSetting;
+import cc.tachi.passwordrecorder.Other.Update;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

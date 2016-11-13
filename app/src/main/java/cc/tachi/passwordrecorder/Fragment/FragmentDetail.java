@@ -23,7 +23,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
-import cc.tachi.passwordrecorder.GeneratePasswd;
+import cc.tachi.passwordrecorder.Other.GeneratePasswd;
 import cc.tachi.passwordrecorder.Other.PasswdStrength;
 import cc.tachi.passwordrecorder.R;
 

@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import cc.tachi.passwordrecorder.R;
-import cc.tachi.passwordrecorder.Update;
+import cc.tachi.passwordrecorder.Other.Update;
 
 /**
  * Created by m on 2016/10/5.
