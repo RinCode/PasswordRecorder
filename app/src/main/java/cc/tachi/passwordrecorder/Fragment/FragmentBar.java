@@ -45,7 +45,7 @@ public class FragmentBar extends Fragment{
             @Override
             public void onClick(View view) {
                 String oldPath = "data/data/cc.tachi.passwordrecorder/databases/" + DATABASE_NAME;
-                String newPath = Environment.getExternalStorageDirectory() + "/tachicc/" + DATABASE_NAME;
+                String newPath = Environment.getExternalStorageDirectory() + "/" + DATABASE_NAME;
                 copyFile(oldPath, newPath,1);
             }
         });

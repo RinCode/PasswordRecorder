@@ -116,6 +116,8 @@ public class FragmentAdd extends Fragment {
                         user.setText("");
                         pass.setText("");
                         other.setText("");
+                        pass.setTextColor(user.getTextColors());
+                        pass.setHintTextColor(user.getHintTextColors());
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(getActivity(), "添加失败", Toast.LENGTH_SHORT).show();
