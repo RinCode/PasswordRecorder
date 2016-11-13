@@ -12,12 +12,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -27,11 +30,11 @@ import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
 import cc.tachi.passwordrecorder.GeneratePasswd;
+import cc.tachi.passwordrecorder.Other.PasswdStrength;
 import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/19.
- *
  */
 public class FragmentAdd extends Fragment {
     private EditText site;
@@ -49,6 +52,8 @@ public class FragmentAdd extends Fragment {
     private CheckBox lletter;
     private CheckBox hletter;
     private CheckBox symbol;
+    private ProgressBar strength;
+    private PasswdStrength passwdStrength;
 
     @Nullable
     @Override
@@ -69,11 +74,32 @@ public class FragmentAdd extends Fragment {
         lletter = (CheckBox) view.findViewById(R.id.checkBoxLLetter);
         hletter = (CheckBox) view.findViewById(R.id.checkBoxHLetter);
         symbol = (CheckBox) view.findViewById(R.id.checkBoxSymbol);
+        strength = (ProgressBar) view.findViewById(R.id.strength);
+        strength.setMax(100);
+        strength.setProgress(0);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwdStrength = new PasswdStrength(pass.getText().toString());
+                int result = passwdStrength.score();
+                strength.setProgress((result>=0)?result:0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
@@ -101,35 +127,35 @@ public class FragmentAdd extends Fragment {
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(generate.getText().equals("生成")){
+                if (generate.getText().equals("生成")) {
                     g1.setVisibility(View.VISIBLE);
                     g2.setVisibility(View.VISIBLE);
                     pass.setTextColor(Color.BLUE);
                     pass.setHintTextColor(Color.BLUE);
                     pass.setHint("填入长度");
                     generate.setText("确定");
-                }else {
-                    int method=0;
-                    if(num.isChecked())
-                        method+=1;
-                    if(lletter.isChecked())
-                        method+=2;
-                    if(hletter.isChecked())
-                        method+=4;
-                    if(symbol.isChecked())
-                        method+=8;
+                } else {
+                    int method = 0;
+                    if (num.isChecked())
+                        method += 1;
+                    if (lletter.isChecked())
+                        method += 2;
+                    if (hletter.isChecked())
+                        method += 4;
+                    if (symbol.isChecked())
+                        method += 8;
                     GeneratePasswd generatePasswd = new GeneratePasswd();
                     String result;
-                    try{
+                    try {
                         int newlength = Integer.parseInt(pass.getText().toString());
-                        if(newlength<20) {
+                        if (newlength < 20) {
                             result = generatePasswd.generate(newlength, method);
                             pass.setText(result);
-                        }else {
+                        } else {
                             pass.setText("");
                             pass.setHint("长度太长");
                         }
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         pass.setText("");
                         pass.setHint("填入长度");
                     }

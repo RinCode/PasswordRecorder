@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Crypt.AESHelper;
 import cc.tachi.passwordrecorder.GeneratePasswd;
+import cc.tachi.passwordrecorder.Other.PasswdStrength;
 import cc.tachi.passwordrecorder.R;
 
 /**
@@ -42,11 +46,14 @@ public class FragmentDetail extends Fragment {
     private SQLiteDatabase db;
     private TableRow g1;
     private TableRow g2;
+    private TableRow strengthRow;
     private CheckBox num;
     private CheckBox lletter;
     private CheckBox hletter;
     private CheckBox symbol;
     private Button generate;
+    private ProgressBar strength;
+    private PasswdStrength passwdStrength;
 
     @Nullable
     @Override
@@ -78,16 +85,39 @@ public class FragmentDetail extends Fragment {
         generate = (Button) view.findViewById(R.id.generate);
         g1 = (TableRow) view.findViewById(R.id.g1);
         g2 = (TableRow) view.findViewById(R.id.g2);
+        strengthRow = (TableRow) view.findViewById(R.id.strengthRow);
         num = (CheckBox) view.findViewById(R.id.checkBoxNum);
         lletter = (CheckBox) view.findViewById(R.id.checkBoxLLetter);
         hletter = (CheckBox) view.findViewById(R.id.checkBoxHLetter);
         symbol = (CheckBox) view.findViewById(R.id.checkBoxSymbol);
+        strength = (ProgressBar) view.findViewById(R.id.strength);
         generate.setVisibility(View.GONE);
+        strength.setMax(100);
+        strength.setProgress(0);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwdStrength = new PasswdStrength(pass.getText().toString());
+                int result = passwdStrength.score();
+                strength.setProgress((result>=0)?result:0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +136,10 @@ public class FragmentDetail extends Fragment {
                     seedlab.setVisibility(View.VISIBLE);
                     seed.setVisibility(View.VISIBLE);
                     generate.setVisibility(View.VISIBLE);
+                    strengthRow.setVisibility(View.VISIBLE);
+                    passwdStrength = new PasswdStrength(pass.getText().toString());
+                    int result = passwdStrength.score();
+                    strength.setProgress((result>=0)?result:0);
                 }
             }
         });
@@ -135,7 +169,8 @@ public class FragmentDetail extends Fragment {
                                     g2.setVisibility(View.GONE);
                                     seed.setVisibility(View.GONE);
                                     seedlab.setVisibility(View.GONE);
-                                    pass.setTextColor(Color.BLACK);
+                                    strengthRow.setVisibility(View.GONE);
+                                    pass.setTextColor(user.getTextColors());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     Toast.makeText(getActivity(), "操作失败", Toast.LENGTH_SHORT).show();

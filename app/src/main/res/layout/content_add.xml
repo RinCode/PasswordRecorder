@@ -105,6 +105,18 @@
                 android:text="生成"/>
         </TableRow>
 
+        <TableRow android:gravity="center">
+            <TextView
+                android:text="密码强度："/>
+            <ProgressBar
+                android:layout_weight="1"
+                android:id="@+id/strength"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                style="?android:attr/progressBarStyleHorizontal"/>
+        </TableRow>
+
         <TableRow android:visibility="gone" android:id="@+id/g1">
             <CheckBox
                 android:layout_width="wrap_content"
