@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     private Context context;
     private ImageView myimage;
     private NavigationView navigationView;
+    private final static String ONE = "query";
+    private final static String TWO = "add";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,17 @@ public class MainActivity extends AppCompatActivity
             }
         });
         init();
+        if (logined())
+            switch (getIntent().getAction()) {
+                case ONE:
+                    fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, query).commit();
+                    break;
+                case TWO:
+                    fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, add).commit();
+                    break;
+                default:
+                    break;
+            }
     }
 
     private void init() {

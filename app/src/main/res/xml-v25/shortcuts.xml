@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:shortcutId="add"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_add"
+        android:shortcutShortLabel="@string/shortcutsadd"
+        android:shortcutLongLabel="@string/shortcutsadd"
+        android:shortcutDisabledMessage="@string/shortcutsdisabled">
+        <intent
+            android:action="add"
+            android:targetPackage="cc.tachi.passwordrecorder"
+            android:targetClass="cc.tachi.passwordrecorder.MainActivity" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="query"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_search"
+        android:shortcutShortLabel="@string/shortcutsquery"
+        android:shortcutLongLabel="@string/shortcutsquery"
+        android:shortcutDisabledMessage="@string/shortcutsdisabled">
+        <intent
+            android:action="query"
+            android:targetPackage="cc.tachi.passwordrecorder"
+            android:targetClass="cc.tachi.passwordrecorder.MainActivity" />
+    </shortcut>
+
+</shortcuts>

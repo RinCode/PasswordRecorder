@@ -4,4 +4,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="input_num_character">0123456789abcdefghijklmnopqrstuvwxyz</string>
     <string name="action_setting">退出登录</string>
+    <string name="shortcutsadd">添加</string>
+    <string name="shortcutsquery">查询</string>
+    <string name="shortcutsdisabled">不可用</string>
 </resources>
