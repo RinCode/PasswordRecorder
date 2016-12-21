@@ -75,6 +75,9 @@ public class FragmentAdd extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        GeneratePasswd generatePasswd = new GeneratePasswd();
+        String result = generatePasswd.generate(8, 7);
+        pass.setText(result);
         pass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
