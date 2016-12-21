@@ -2,16 +2,20 @@ package cc.tachi.passwordrecorder.Other;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -33,7 +37,7 @@ import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/9/24.
- *
+ * <p>
  * http://www.jikexueyuan.com/course/1607_1.html?ss=1
  */
 public class Update {
@@ -74,7 +78,7 @@ public class Update {
 
                 if (isUpdate()) {
                     showNoticeDialog();
-                } else if (showMsg){
+                } else if (showMsg) {
                     Toast.makeText(mContext, "当前为最新版本", Toast.LENGTH_SHORT).show();
                 }
 
@@ -121,7 +125,7 @@ public class Update {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError arg0) {
-                Toast.makeText(mContext,"网络异常",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(request);
@@ -130,7 +134,7 @@ public class Update {
     /*
      * 与本地版本比较判断是否需要更新
      */
-    protected boolean isUpdate() {
+    private boolean isUpdate() {
         int serverVersion = Integer.parseInt(mVersion_code);
         int localVersion = 1;
 
@@ -146,7 +150,7 @@ public class Update {
     /*
      * 有更新时显示提示对话框
      */
-    protected void showNoticeDialog() {
+    private void showNoticeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("检测到新版本");
         String message = "更新内容：\n" + mVersion_desc;
@@ -233,14 +237,19 @@ public class Update {
         }).start();
     }
 
-    protected void installAPK() {
+    private void installAPK() {
         File apkFile = new File(savePath, mVersion_name + ".apk");
         if (!apkFile.exists())
             return;
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.parse("file://" + apkFile.toString());
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Uri contentUri = FileProvider.getUriForFile(mContext, "cc.tachi.passwordrecorder.fileprovider", apkFile);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+        }
         mContext.startActivity(intent);
     }
 
