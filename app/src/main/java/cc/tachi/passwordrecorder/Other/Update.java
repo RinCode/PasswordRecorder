@@ -39,6 +39,7 @@ import cc.tachi.passwordrecorder.R;
  * Created by m on 2016/9/24.
  * <p>
  * http://www.jikexueyuan.com/course/1607_1.html?ss=1
+ * http://www.jianshu.com/p/577816c3ce93
  */
 public class Update {
 
@@ -241,15 +242,11 @@ public class Update {
         File apkFile = new File(savePath, mVersion_name + ".apk");
         if (!apkFile.exists())
             return;
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Uri contentUri = FileProvider.getUriForFile(mContext, "cc.tachi.passwordrecorder.fileprovider", apkFile);
-            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-        } else {
-            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
-        }
+        Uri apkUri = FileProvider.getUriForFile(mContext, "cc.tachi.fileprovider", apkFile);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
 
