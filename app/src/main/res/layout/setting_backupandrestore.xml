@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="   备份文件将会储存为SD卡根目录/tachi.db，请确保程序有访问系统储存的权限。恢复数据时同样将备份出的tachi.db放在SD卡根目录下即可。"/>
+        android:text="   备份文件将会储存为SD卡根目录/tachi/tachi.db，请确保程序有访问系统储存的权限。恢复数据时同样将备份出的tachi.db放在此目录下即可。"/>
     <Button
         android:paddingTop="10dp"
         android:layout_width="wrap_content"

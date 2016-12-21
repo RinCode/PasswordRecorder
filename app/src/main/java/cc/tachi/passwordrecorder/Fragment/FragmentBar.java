@@ -21,10 +21,10 @@ import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by m on 2016/10/4.
- *
+ * <p>
  * http://www.2cto.com/kf/201409/330644.html
  */
-public class FragmentBar extends Fragment{
+public class FragmentBar extends Fragment {
     private Button backup;
     private Button restore;
 
@@ -33,7 +33,7 @@ public class FragmentBar extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_backupandrestore, container, false);
         getActivity().setTitle("备份和还原");
-        backup= (Button) view.findViewById(R.id.backup);
+        backup = (Button) view.findViewById(R.id.backup);
         restore = (Button) view.findViewById(R.id.restore);
         return view;
     }
@@ -45,8 +45,8 @@ public class FragmentBar extends Fragment{
             @Override
             public void onClick(View view) {
                 String oldPath = "data/data/cc.tachi.passwordrecorder/databases/" + DATABASE_NAME;
-                String newPath = Environment.getExternalStorageDirectory() + "/" + DATABASE_NAME;
-                copyFile(oldPath, newPath,1);
+                String newPath = Environment.getExternalStorageDirectory() + "/tachicc/" + DATABASE_NAME;
+                copyFile(oldPath, newPath, 1);
             }
         });
         restore.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +59,8 @@ public class FragmentBar extends Fragment{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String newPath = "data/data/cc.tachi.passwordrecorder/databases/" + DATABASE_NAME;
-                                String oldPath = Environment.getExternalStorageDirectory() + "/" + DATABASE_NAME;
-                                copyFile(oldPath, newPath,0);
+                                String oldPath = Environment.getExternalStorageDirectory() + "/tachicc/" + DATABASE_NAME;
+                                copyFile(oldPath, newPath, 0);
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -83,13 +83,17 @@ public class FragmentBar extends Fragment{
      * @param newPath String 复制后路径
      * @return boolean
      */
-    public void copyFile(String oldPath, String newPath,int method) {
+    public void copyFile(String oldPath, String newPath, int method) {
         try {
             int bytesum = 0;
             int byteread = 0;
             File oldfile = new File(oldPath);
             File newfile = new File(newPath);
-            if(method==1) {
+            if (method == 1) {
+                File dict = new File(Environment.getExternalStorageDirectory() + "/tachicc/");
+                if (!dict.exists()) {
+                    dict.mkdirs();
+                }
                 if (!newfile.exists()) {
                     newfile.createNewFile();
                 }
@@ -102,9 +106,9 @@ public class FragmentBar extends Fragment{
                         fs.write(buffer, 0, byteread);
                     }
                     inStream.close();
-                    Toast.makeText(getActivity(), "文件已保存到/tachi.db", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "文件已保存到/tachicc/tachi.db", Toast.LENGTH_SHORT).show();
                 }
-            }else {
+            } else {
                 if (!newfile.exists()) {
                     newfile.createNewFile();
                 }
@@ -118,9 +122,8 @@ public class FragmentBar extends Fragment{
                     }
                     inStream.close();
                     Toast.makeText(getActivity(), "恢复成功", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "备份文件不存在", Toast.LENGTH_SHORT).show();
-
                 }
             }
         } catch (Exception e) {

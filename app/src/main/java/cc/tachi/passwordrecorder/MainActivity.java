@@ -19,12 +19,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Fragment.FragmentAdd;
 import cc.tachi.passwordrecorder.Fragment.FragmentLogin;
+import cc.tachi.passwordrecorder.Fragment.FragmentOLogin;
 import cc.tachi.passwordrecorder.Fragment.FragmentQuery;
 import cc.tachi.passwordrecorder.Fragment.FragmentSetting;
 import cc.tachi.passwordrecorder.Other.Update;
@@ -35,10 +37,12 @@ public class MainActivity extends AppCompatActivity
     private FragmentQuery query;
     private FragmentAdd add;
     private FragmentSetting setting;
+    private FragmentOLogin ologin;
     private FragmentManager fm;
-    private android.support.v4.app.FragmentTransaction transaction;
     private SharedPreferences preferences;
     private Context context;
+    private ImageView myimage;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         context = this;
+        fm = getSupportFragmentManager();
+        query = new FragmentQuery();
+        login = new FragmentLogin();
+        add = new FragmentAdd();
+        setting = new FragmentSetting();
+        ologin = new FragmentOLogin();
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,14 +78,16 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        fm = getSupportFragmentManager();
-        query = new FragmentQuery();
-        login = new FragmentLogin();
-        add = new FragmentAdd();
-        setting = new FragmentSetting();
+        View header = navigationView.getHeaderView(0);
+        myimage = (ImageView) header.findViewById(R.id.myimage);
+        myimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, ologin).commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
         init();
     }
 
