@@ -133,7 +133,6 @@ public class FragmentLogin extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void fingerAuth() {
         final FingerPrintAuth fingerPrintAuth = new FingerPrintAuth(getActivity(), fingerHandler);
-        fingerPrintAuth.auth();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("指纹识别");
         builder.setMessage("正在识别");
@@ -146,6 +145,7 @@ public class FragmentLogin extends Fragment {
         });
         fingerDialog = builder.create();
         fingerDialog.show();
+        fingerPrintAuth.auth();
     }
 
     private Handler fingerHandler = new Handler() {
@@ -157,6 +157,9 @@ public class FragmentLogin extends Fragment {
                     break;
                 case 0:
                     Toast.makeText(getActivity(), "验证失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case -1:
+                    fingerDialog.dismiss();
                     break;
             }
         }
