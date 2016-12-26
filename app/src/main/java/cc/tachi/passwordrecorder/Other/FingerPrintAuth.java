@@ -64,7 +64,6 @@ public class FingerPrintAuth {
                 }
             }
         };
-        check();
     }
 
     public void cancel(){
@@ -74,6 +73,7 @@ public class FingerPrintAuth {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void auth(){
+        check();
         try {
             FingerCrypto fingerCrypto = new FingerCrypto();
             if (cancellationSignal == null) {
@@ -97,7 +97,6 @@ public class FingerPrintAuth {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("错误");
                 builder.setMessage("未发现指纹传感器");
-                builder.setIcon(android.R.drawable.stat_sys_warning);
                 builder.setCancelable(false);
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -107,13 +106,11 @@ public class FingerPrintAuth {
                 });
                 // show this dialog.
                 builder.create().show();
-            }
-            if (!fingerprintManager.hasEnrolledFingerprints()) {
+            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
                 // no fingerprint image has been enrolled.
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("错误");
                 builder.setMessage("系统中无已注册指纹");
-                builder.setIcon(android.R.drawable.stat_sys_warning);
                 builder.setCancelable(false);
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override

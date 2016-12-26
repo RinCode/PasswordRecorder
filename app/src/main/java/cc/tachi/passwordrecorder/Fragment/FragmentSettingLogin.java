@@ -64,7 +64,6 @@ public class FragmentSettingLogin extends Fragment {
                         if(adapterView.getItemAtPosition(i)=="启用指纹登录") {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 final FingerPrintAuth fingerPrintAuth = new FingerPrintAuth(getActivity(), fingerHandler);
-                                fingerPrintAuth.auth();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("指纹识别");
                                 builder.setMessage("正在识别");
@@ -77,6 +76,7 @@ public class FragmentSettingLogin extends Fragment {
                                 });
                                 fingerDialog = builder.create();
                                 fingerDialog.show();
+                                fingerPrintAuth.auth();
                             } else {
                                 Toast.makeText(getActivity(), "当前系统版本无法启用此功能。", Toast.LENGTH_SHORT).show();
                             }
@@ -118,7 +118,7 @@ public class FragmentSettingLogin extends Fragment {
                     break;
                 case -1:
                     fingerDialog.dismiss();
-                    Toast.makeText(getActivity(),"无指纹传感器或当前未设置指纹，无法启用",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"启用失败",Toast.LENGTH_SHORT).show();
                     break;
             }
         }
