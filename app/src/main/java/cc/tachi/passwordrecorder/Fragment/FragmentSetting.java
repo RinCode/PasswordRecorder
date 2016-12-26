@@ -23,8 +23,7 @@ public class FragmentSetting extends Fragment {
     private FragmentManager fm;
     private FragmentBar bar;
     private FragmentAbout about;
-    private FragmentChangePasswd changePasswd;
-    private android.support.v4.app.FragmentTransaction transaction;
+    private FragmentSettingLogin fl;
 
     @Nullable
     @Override
@@ -33,7 +32,7 @@ public class FragmentSetting extends Fragment {
         getActivity().setTitle("设置");
         setting = (ListView) view.findViewById(R.id.main_setting);
         adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1);
-        adapter.add("修改登录密码");
+        adapter.add("登录选项");
         adapter.add("备份和还原");
         adapter.add("检查更新");
         adapter.add("关于");
@@ -48,9 +47,9 @@ public class FragmentSetting extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:
-                        changePasswd = new FragmentChangePasswd();
+                        fl = new FragmentSettingLogin();
                         fm=getActivity().getSupportFragmentManager();
-                        fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, changePasswd).commit();
+                        fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, fl).commit();
                         break;
                     case 1:
                         bar = new FragmentBar();

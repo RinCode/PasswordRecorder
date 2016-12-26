@@ -153,8 +153,12 @@ public class MainActivity extends AppCompatActivity
             editor.putString("logined", "");
             editor.apply();
             Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("finger", "no");
             FragmentManager fragmentManager = getSupportFragmentManager();//清除回退stack
             fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            login = new FragmentLogin();
+            login.setArguments(bundle);
             fm.beginTransaction().replace(R.id.id_content, login).commit();
         }
         return super.onOptionsItemSelected(item);
@@ -184,7 +188,6 @@ public class MainActivity extends AppCompatActivity
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
         if (Objects.equals(name, "")) {
-            Toast.makeText(this, "请先登录", Toast.LENGTH_SHORT).show();
             fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, login).commit();
             return false;
         } else {
