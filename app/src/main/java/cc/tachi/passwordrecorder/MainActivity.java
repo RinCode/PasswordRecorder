@@ -26,7 +26,6 @@ import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Fragment.FragmentAdd;
 import cc.tachi.passwordrecorder.Fragment.FragmentLogin;
-import cc.tachi.passwordrecorder.Fragment.FragmentOLogin;
 import cc.tachi.passwordrecorder.Fragment.FragmentQuery;
 import cc.tachi.passwordrecorder.Fragment.FragmentSetting;
 import cc.tachi.passwordrecorder.Other.Update;
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity
     private FragmentQuery query;
     private FragmentAdd add;
     private FragmentSetting setting;
-    private FragmentOLogin ologin;
     private FragmentManager fm;
     private SharedPreferences preferences;
     private Context context;
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         login = new FragmentLogin();
         add = new FragmentAdd();
         setting = new FragmentSetting();
-        ologin = new FragmentOLogin();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -85,9 +82,6 @@ public class MainActivity extends AppCompatActivity
         myimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fm.beginTransaction().addToBackStack(null).replace(R.id.id_content, ologin).commit();
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
             }
         });
         init();
