@@ -29,6 +29,7 @@ import cc.tachi.passwordrecorder.Fragment.FragmentLogin;
 import cc.tachi.passwordrecorder.Fragment.FragmentQuery;
 import cc.tachi.passwordrecorder.Fragment.FragmentSetting;
 import cc.tachi.passwordrecorder.Other.Update;
+import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -99,6 +100,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init() {
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
         //权限申请
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)

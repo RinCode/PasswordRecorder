@@ -28,6 +28,11 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -36,6 +41,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile files('libs/Volley.jar')
+    compile files('libs/jcore-android_v1.0.0.jar')
+    compile files('libs/jpush-android_v3.0.0.jar')
 }
 
 dependencies {
