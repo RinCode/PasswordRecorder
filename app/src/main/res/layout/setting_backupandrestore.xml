@@ -1,25 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:padding="20dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="   备份文件将会储存为SD卡根目录/tachi/tachi.db，请确保程序有访问系统储存的权限。恢复数据时同样将备份出的tachi.db放在此目录下即可。"/>
-    <Button
-        android:paddingTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="备份"
-        android:id="@+id/backup"
-        android:layout_gravity="center_horizontal" />
+        android:text="   备份文件将会储存为SD卡根目录/tachi/tachi.db，请确保程序有访问系统储存的权限。恢复数据时同样将备份出的tachi.db放在此目录下即可。" />
 
-    <Button
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/restore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还原" />
+
+            <Button
+                android:id="@+id/backup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备份" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="还原"
-        android:id="@+id/restore"
-        android:layout_gravity="center_horizontal" />
+        android:text="自动备份设置：" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+        <Spinner
+            android:id="@+id/autobackupspin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinbackup"></Spinner>
+
+        <Button
+            android:id="@+id/setautobackup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定" />
+
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

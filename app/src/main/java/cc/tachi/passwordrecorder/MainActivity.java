@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 import cc.tachi.passwordrecorder.Fragment.FragmentAdd;
+import cc.tachi.passwordrecorder.Fragment.FragmentBar;
 import cc.tachi.passwordrecorder.Fragment.FragmentLogin;
 import cc.tachi.passwordrecorder.Fragment.FragmentQuery;
 import cc.tachi.passwordrecorder.Fragment.FragmentSetting;
@@ -125,6 +127,10 @@ public class MainActivity extends AppCompatActivity
         db.close();
         //
 
+        //检查自动备份
+        autobackup();
+        //
+
         //登录判断
         preferences = getSharedPreferences("logined", MODE_PRIVATE);
         String name = preferences.getString("logined", "");
@@ -207,4 +213,28 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+
+    private void autobackup() {
+        try {
+            preferences = getSharedPreferences("setting", MODE_PRIVATE);
+            String time = String.valueOf(System.currentTimeMillis() / 1000);
+            String status = preferences.getString("autobackup", "");
+            if (Objects.equals(status, "7")) {
+                String last = preferences.getString("lastbackup", "");
+                if ((Long.parseLong(time) - Long.parseLong(last)) >= 3600 * 24 * 7) {
+                    String oldPath = "data/data/cc.tachi.passwordrecorder/databases/tachi.db";
+                    String newPath = Environment.getExternalStorageDirectory() + "/tachicc/tachi.db." + time;
+                    SharedPreferences.Editor editor = getSharedPreferences("setting", MODE_PRIVATE).edit();
+                    editor.putString("lastbackup", time);
+                    editor.apply();
+                    FragmentBar fragmentBar = new FragmentBar();
+                    fragmentBar.copyFile(oldPath, newPath, 1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,8 +1,10 @@
 package cc.tachi.passwordrecorder.Fragment;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.Preference;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
@@ -27,20 +30,41 @@ import cc.tachi.passwordrecorder.R;
 public class FragmentBar extends Fragment {
     private Button backup;
     private Button restore;
+    private Button autoback;
+    private Spinner spinner;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.setting_backupandrestore, container, false);
         getActivity().setTitle("备份和还原");
+        spinner = (Spinner) view.findViewById(R.id.autobackupspin);
+        autoback = (Button) view.findViewById(R.id.setautobackup);
         backup = (Button) view.findViewById(R.id.backup);
         restore = (Button) view.findViewById(R.id.restore);
+        SharedPreferences preferences = getActivity().getSharedPreferences("setting", getActivity().MODE_PRIVATE);
+        String status = preferences.getString("autobackup", "0");
+        if(Integer.parseInt(status)==0)
+            spinner.setSelection(0);
+        else
+            spinner.setSelection(1);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         final String DATABASE_NAME = "tachi.db";
+        autoback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long pos = spinner.getSelectedItemId();
+                if(pos==0) {
+                    changeSetting("0");
+                }else if(pos == 1){
+                    changeSetting("7");
+                }
+            }
+        });
         backup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +100,18 @@ public class FragmentBar extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+
+    private void changeSetting(String status){
+        try {
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences("setting", getActivity().MODE_PRIVATE).edit();
+            editor.putString("autobackup", status);
+            Toast.makeText(getActivity(),"设置成功",Toast.LENGTH_SHORT).show();
+            editor.apply();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 复制单个文件
      *
@@ -106,7 +142,7 @@ public class FragmentBar extends Fragment {
                         fs.write(buffer, 0, byteread);
                     }
                     inStream.close();
-                    Toast.makeText(getActivity(), "文件已保存到/tachicc/tachi.db", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "文件已保存", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 if (!newfile.exists()) {
@@ -129,8 +165,6 @@ public class FragmentBar extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getActivity(), "发生错误", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
-
         }
-
     }
 }

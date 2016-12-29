@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="spingarr">
+    <string-array name="spinquery">
         <item>网址</item>
         <item>邮箱</item>
+    </string-array>
+    <string-array name="spinbackup">
+        <item>不设置</item>
+        <item>每周</item>
     </string-array>
 </resources>
