@@ -53,6 +53,8 @@
             <meta-data android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+
+        <!--jiguang push-->
         <!-- Required SDK核心功能-->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
@@ -111,5 +113,16 @@
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="99d18858557188a07bf011a3" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <!--end of jiguang push-->
+
+        <!--weight-->
+        <receiver android:name=".Other.weight">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/weight" />
+        </receiver>
+        <!--end of weight-->
     </application>
 </manifest>
