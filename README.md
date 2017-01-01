@@ -24,7 +24,7 @@
 
 ## 反馈与建议
 - Twitter：[@たちさん](https://twitter.com/sendohma)
-- 邮箱：<sendohma#gmail.com>
+- 邮箱：sendohma#gmail.com
 
 ## 参考文档
 - 于源代码内查看
