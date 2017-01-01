@@ -7,6 +7,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="\t本软件仅供个人学习安卓编程之用，不保证软件的稳定性及所存储数据的安全性。\n\n\t如遇任何bug请反馈至邮箱164539133@qq.com。\n\n\tCopyright © 2015-2016 Tachi.cc. All Rights Reserved. Powered By Tachi."/>
+        android:text="\t本软件仅供个人学习安卓编程之用，不保证软件的稳定性及所存储数据的安全性。\n\n\t如遇任何bug请反馈至邮箱164539133@qq.com。\n\n\tCopyright © 2015-2016 Tachi.cc. All Rights Reserved. Powered By Tachi.\n开放源代码：https://github.com/TachiCode/PasswordRecorder"/>
 
 </LinearLayout>

@@ -42,8 +42,6 @@ import cc.tachi.passwordrecorder.R;
  * http://www.jianshu.com/p/577816c3ce93
  */
 public class Update {
-
-
     private ProgressBar mProgressBar;
     private Dialog mDownloadDialog;
 
