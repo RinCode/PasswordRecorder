@@ -2,15 +2,14 @@
   <br/>
   密码本
 </h1>
-@(密码记录)
 
 ## 部分截图
-![screenshot](https://github.com/TachiCode/PasswordRecorder/tree/master/screenshot/Screenshot_1.png)
-![screenshot](https://github.com/TachiCode/PasswordRecorder/tree/master/screenshot/Screenshot_2.png)
-![screenshot](https://github.com/TachiCode/PasswordRecorder/tree/master/screenshot/Screenshot_3.png)
-![screenshot](https://github.com/TachiCode/PasswordRecorder/tree/master/screenshot/Screenshot_4.png)
-![screenshot](https://github.com/TachiCode/PasswordRecorder/tree/master/screenshot/Screenshot_5.png)
-![screenshot](https://github.com/TachiCode/PasswordRecorder/tree/master/screenshot/Screenshot_6.png)
+![screenshot](http://app.tachi.cc/screenshot/Screenshot_1.png)
+![screenshot](http://app.tachi.cc/screenshot/Screenshot_2.png)
+![screenshot](http://app.tachi.cc/screenshot/Screenshot_3.png)
+![screenshot](http://app.tachi.cc/screenshot/Screenshot_4.png)
+![screenshot](http://app.tachi.cc/screenshot/Screenshot_5.png)
+![screenshot](http://app.tachi.cc/screenshot/Screenshot_6.png)
 
 ##特性
  
