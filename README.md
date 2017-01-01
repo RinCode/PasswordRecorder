@@ -4,12 +4,14 @@
 </h1>
 
 ## 部分截图
-![screenshot](http://app.tachi.cc/screenshot/Screenshot_1.png)
-![screenshot](http://app.tachi.cc/screenshot/Screenshot_2.png)
-![screenshot](http://app.tachi.cc/screenshot/Screenshot_3.png)
-![screenshot](http://app.tachi.cc/screenshot/Screenshot_4.png)
-![screenshot](http://app.tachi.cc/screenshot/Screenshot_5.png)
-![screenshot](http://app.tachi.cc/screenshot/Screenshot_6.png)
+<p>
+<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_1.png"/>
+<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_2.png"/>
+<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_3.png"/>
+<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_4.png"/>
+<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_5.png"/>
+<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_6.png"/>
+</p>
 
 ##特性
  
