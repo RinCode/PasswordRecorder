@@ -44,7 +44,7 @@ public class FragmentBar extends Fragment {
         restore = (Button) view.findViewById(R.id.restore);
         SharedPreferences preferences = getActivity().getSharedPreferences("setting", getActivity().MODE_PRIVATE);
         String status = preferences.getString("autobackup", "0");
-        if(Integer.parseInt(status)==0)
+        if (Integer.parseInt(status) == 0)
             spinner.setSelection(0);
         else
             spinner.setSelection(1);
@@ -58,9 +58,9 @@ public class FragmentBar extends Fragment {
             @Override
             public void onClick(View view) {
                 long pos = spinner.getSelectedItemId();
-                if(pos==0) {
+                if (pos == 0) {
                     changeSetting("0");
-                }else if(pos == 1){
+                } else if (pos == 1) {
                     changeSetting("7");
                 }
             }
@@ -101,13 +101,14 @@ public class FragmentBar extends Fragment {
     }
 
 
-    private void changeSetting(String status){
+    private void changeSetting(String status) {
         try {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences("setting", getActivity().MODE_PRIVATE).edit();
             editor.putString("autobackup", status);
-            Toast.makeText(getActivity(),"设置成功",Toast.LENGTH_SHORT).show();
+            editor.putString("lastbackup", "0");
+            Toast.makeText(getActivity(), "设置成功", Toast.LENGTH_SHORT).show();
             editor.apply();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

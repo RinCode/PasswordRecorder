@@ -1,6 +1,7 @@
 package cc.tachi.passwordrecorder;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -216,12 +217,13 @@ public class MainActivity extends AppCompatActivity
 
 
     private void autobackup() {
+        preferences = getSharedPreferences("setting", MODE_PRIVATE);
+        String time = String.valueOf(System.currentTimeMillis() / 1000);
+        String status = preferences.getString("autobackup", "");
         try {
-            preferences = getSharedPreferences("setting", MODE_PRIVATE);
-            String time = String.valueOf(System.currentTimeMillis() / 1000);
-            String status = preferences.getString("autobackup", "");
             if (Objects.equals(status, "7")) {
-                String last = preferences.getString("lastbackup", "");
+                String last;
+                last = preferences.getString("lastbackup", "");
                 if ((Long.parseLong(time) - Long.parseLong(last)) >= 3600 * 24 * 7) {
                     String oldPath = "data/data/cc.tachi.passwordrecorder/databases/tachi.db";
                     String newPath = Environment.getExternalStorageDirectory() + "/tachicc/tachi.db." + time;
@@ -232,7 +234,7 @@ public class MainActivity extends AppCompatActivity
                     fragmentBar.copyFile(oldPath, newPath, 1);
                 }
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
