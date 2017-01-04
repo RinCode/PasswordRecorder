@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -238,11 +239,16 @@ public class Update {
         File apkFile = new File(savePath, mVersion_name + ".apk");
         if (!apkFile.exists())
             return;
-        Uri apkUri = FileProvider.getUriForFile(mContext, "cc.tachi.fileprovider", apkFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri apkUri = FileProvider.getUriForFile(mContext, "cc.tachi.fileprovider", apkFile);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        }else{
+            Uri apkUri = Uri.parse("file://" + apkFile.toString());
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        }
         mContext.startActivity(intent);
     }
 
