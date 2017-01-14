@@ -11,14 +11,7 @@ android {
         versionCode 24
         versionName "2.9"
     }
-    signingConfigs {
-        release {
-            storeFile file("C:\\Users\\tachi\\Documents\\tachi.keystore")
-            storePassword "62226546"
-            keyAlias "tachi"
-            keyPassword "62226546"
-        }
-    }
+
     buildTypes {
         release {
             minifyEnabled false
