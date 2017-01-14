@@ -1,7 +1,6 @@
 package cc.tachi.passwordrecorder;
 
 import android.Manifest;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -89,6 +88,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
         init();
+
+        //shortcuts
         if (logined())
             switch (getIntent().getAction()) {
                 case ONE:
@@ -122,7 +123,6 @@ public class MainActivity extends AppCompatActivity
 
         //创建/读取数据库
         SQLiteDatabase db = openOrCreateDatabase("tachi.db", MODE_PRIVATE, null);
-
         db.execSQL("create table if not exists user (id integer primary key autoincrement, user text not null , password text not null )");
         db.execSQL("create table if not exists data (id integer primary key autoincrement, site text not null , mail text not null , user text not null, pass text not null, other text not null )");
         db.close();
@@ -152,12 +152,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             SharedPreferences.Editor editor = this.getSharedPreferences("logined", this.MODE_PRIVATE).edit();
             editor.putString("logined", "");
@@ -177,7 +172,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (logined()) {
             if (id == R.id.nav_query) {

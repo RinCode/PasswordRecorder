@@ -5,6 +5,7 @@ package cc.tachi.passwordrecorder.Crypt;
  * http://blog.csdn.net/sundaylover/article/details/37348159
  */
 
+
 import java.nio.charset.StandardCharsets;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

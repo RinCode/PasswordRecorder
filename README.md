@@ -15,7 +15,7 @@
 
 ##特性
  
-- 图形解锁登录，指纹解锁登录
+- 图形解锁登录，指纹解锁登录（Android6.0及以上版本可用）
 - AES安全密码加密 
 - 数据库备份还原，自动备份
 - 可生成随机密码，动态显示密码强度
@@ -30,4 +30,4 @@
 - 于源代码内查看
 
 ## 下载
-- [http://ofx23nwen.bkt.clouddn.com/pr/app-release.apk](http://ofx23nwen.bkt.clouddn.com/pr/app-release.apk)
+- [http://ofx23nwen.bkt.clouddn.com/pr/2.8.apk](http://ofx23nwen.bkt.clouddn.com/pr/2.8.apk)

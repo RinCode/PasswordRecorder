@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -47,12 +48,14 @@ public class FragmentAdd extends Fragment {
     private CheckBox symbol;
     private ProgressBar strength;
     private PasswdStrength passwdStrength;
+    private SeekBar seekBar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_add, container, false);
         getActivity().setTitle("添加");
+        seekBar= (SeekBar) view.findViewById(R.id.seekbar);
         seed = (EditText) view.findViewById(R.id.seed);
         site = (EditText) view.findViewById(R.id.site);
         mail = (EditText) view.findViewById(R.id.mail);
@@ -60,7 +63,6 @@ public class FragmentAdd extends Fragment {
         pass = (EditText) view.findViewById(R.id.upass);
         other = (EditText) view.findViewById(R.id.other);
         submit = (Button) view.findViewById(R.id.additem);
-        generate = (Button) view.findViewById(R.id.generate);
         g1 = (TableRow) view.findViewById(R.id.g1);
         g2 = (TableRow) view.findViewById(R.id.g2);
         num = (CheckBox) view.findViewById(R.id.checkBoxNum);
@@ -76,6 +78,33 @@ public class FragmentAdd extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         GeneratePasswd generatePasswd = new GeneratePasswd();
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                int method = 0;
+                if (num.isChecked())
+                    method += 1;
+                if (lletter.isChecked())
+                    method += 2;
+                if (hletter.isChecked())
+                    method += 4;
+                if (symbol.isChecked())
+                    method += 8;
+                GeneratePasswd generatePasswd = new GeneratePasswd();
+                String result = generatePasswd.generate(i,method);
+                pass.setText(result);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         String result = generatePasswd.generate(8, 7);
         pass.setText(result);
         pass.addTextChangedListener(new TextWatcher() {
@@ -120,44 +149,6 @@ public class FragmentAdd extends Fragment {
                     }
                 }
                 db.close();
-            }
-        });
-        generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (generate.getText().equals("生成")) {
-                    g1.setVisibility(View.VISIBLE);
-                    g2.setVisibility(View.VISIBLE);
-                    pass.setTextColor(Color.BLUE);
-                    pass.setHintTextColor(Color.BLUE);
-                    pass.setHint("填入长度");
-                    generate.setText("确定");
-                } else {
-                    int method = 0;
-                    if (num.isChecked())
-                        method += 1;
-                    if (lletter.isChecked())
-                        method += 2;
-                    if (hletter.isChecked())
-                        method += 4;
-                    if (symbol.isChecked())
-                        method += 8;
-                    GeneratePasswd generatePasswd = new GeneratePasswd();
-                    String result;
-                    try {
-                        int newlength = Integer.parseInt(pass.getText().toString());
-                        if (newlength < 20) {
-                            result = generatePasswd.generate(newlength, method);
-                            pass.setText(result);
-                        } else {
-                            pass.setText("");
-                            pass.setHint("长度太长");
-                        }
-                    } catch (Exception e) {
-                        pass.setText("");
-                        pass.setHint("填入长度");
-                    }
-                }
             }
         });
         super.onActivityCreated(savedInstanceState);

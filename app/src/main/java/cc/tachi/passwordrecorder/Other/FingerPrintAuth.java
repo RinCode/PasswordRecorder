@@ -1,25 +1,19 @@
 package cc.tachi.passwordrecorder.Other;
 
-import android.Manifest;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v4.os.CancellationSignal;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import cc.tachi.passwordrecorder.Crypt.FingerCrypto;
-import cc.tachi.passwordrecorder.R;
 
 /**
  * Created by tachi on 2016/12/26.

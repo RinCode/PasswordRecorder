@@ -99,15 +99,22 @@
                 android:layout_weight="3"
                 android:hint="密码"
                 android:singleLine="true" />
-
-            <Button
-                android:id="@+id/generate"
-                android:text="生成"/>
         </TableRow>
 
         <TableRow android:gravity="center">
             <TextView
-                android:text="密码强度："/>
+                android:text="长度："/>
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="20" />
+        </TableRow>
+
+        <TableRow android:gravity="center">
+            <TextView
+                android:text="强度："/>
             <ProgressBar
                 android:layout_weight="1"
                 android:id="@+id/strength"
@@ -117,20 +124,22 @@
                 style="?android:attr/progressBarStyleHorizontal"/>
         </TableRow>
 
-        <TableRow android:visibility="gone" android:id="@+id/g1">
+        <TableRow android:id="@+id/g1">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="数字"
+                android:checked="true"
                 android:id="@+id/checkBoxNum" />
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="小写字母"
+                android:checked="true"
                 android:id="@+id/checkBoxLLetter" />
         </TableRow>
 
-        <TableRow android:visibility="gone" android:id="@+id/g2">
+        <TableRow android:id="@+id/g2">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,6 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="大写字母"
+                android:checked="true"
                 android:id="@+id/checkBoxHLetter" />
         </TableRow>
 
