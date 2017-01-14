@@ -3,7 +3,7 @@
   密码本
 </h1>
 
-## 部分截图
+## 部分截图（截至2.8版本）
 <p>
 <img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_1.png"/>
 <img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_2.png"/>
