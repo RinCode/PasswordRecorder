@@ -1,9 +1,9 @@
 <h1 align="center">
   <br/>
-  ÃÜÂë±¾
+  å¯†ç æœ¬
 </h1>
 
-## ²¿·Ö½ØÍ¼£¨½ØÖÁ2.8°æ±¾£©
+## éƒ¨åˆ†æˆªå›¾ï¼ˆæˆªè‡³2.8ç‰ˆæœ¬ï¼‰
 <p>
 <img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_1.png"/>
 <img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_2.png"/>
@@ -13,21 +13,17 @@
 <img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_6.png"/>
 </p>
 
-##ÌØÐÔ
+##ç‰¹æ€§
  
-- Í¼ÐÎ½âËøµÇÂ¼£¬Ö¸ÎÆ½âËøµÇÂ¼£¨Android6.0¼°ÒÔÉÏ°æ±¾¿ÉÓÃ£©
-- AES°²È«ÃÜÂë¼ÓÃÜ 
-- Êý¾Ý¿â±¸·Ý»¹Ô­£¬×Ô¶¯±¸·Ý
-- ¿ÉÉú³ÉËæ»úÃÜÂë£¬¶¯Ì¬ÏÔÊ¾ÃÜÂëÇ¿¶È
-- ÔÚÏß¸üÐÂ
-- Ö§³ÖAndroid7.xShortcutsÌØÐÔ
+- å›¾å½¢è§£é”ç™»å½•ï¼ŒæŒ‡çº¹è§£é”ç™»å½•ï¼ˆAndroid6.0åŠä»¥ä¸Šç‰ˆæœ¬å¯ç”¨ï¼‰
+- AESå®‰å…¨å¯†ç åŠ å¯† 
+- æ•°æ®åº“å¤‡ä»½è¿˜åŽŸï¼Œè‡ªåŠ¨å¤‡ä»½
+- å¯ç”Ÿæˆéšæœºå¯†ç ï¼ŒåŠ¨æ€æ˜¾ç¤ºå¯†ç å¼ºåº¦
+- åœ¨çº¿æ›´æ–°
+- æ”¯æŒAndroid7.xShortcutsç‰¹æ€§
 
-## ·´À¡Óë½¨Òé
-- Twitter£º[@¤¿¤Á¤µ¤ó](https://twitter.com/sendohma)
-- ÓÊÏä£ºsendohma#gmail.com
+## å‚è€ƒæ–‡æ¡£
+- äºŽæºä»£ç å†…æŸ¥çœ‹
 
-## ²Î¿¼ÎÄµµ
-- ÓÚÔ´´úÂëÄÚ²é¿´
-
-## ÏÂÔØ
+## ä¸‹è½½
 - [http://ofx23nwen.bkt.clouddn.com/pr/2.8.apk](http://ofx23nwen.bkt.clouddn.com/pr/2.8.apk)
