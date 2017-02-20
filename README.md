@@ -5,12 +5,12 @@
 
 ## 部分截图（截至2.8版本）
 <p>
-<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_1.png"/>
-<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_2.png"/>
-<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_3.png"/>
-<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_4.png"/>
-<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_5.png"/>
-<img width="180px" src="http://app.tachi.cc/screenshot/Screenshot_6.png"/>
+<img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_1.png"/>
+<img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_2.png"/>
+<img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_3.png"/>
+<img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_4.png"/>
+<img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_5.png"/>
+<img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_6.png"/>
 </p>
 
 ##特性
