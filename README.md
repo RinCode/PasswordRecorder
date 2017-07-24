@@ -13,7 +13,7 @@
 <img width="180px" src="https://raw.githubusercontent.com/RinCode/PasswordRecorder/master/screenshot/Screenshot_6.png"/>
 </p>
 
-##特性
+## 特性
  
 - 图形解锁登录，指纹解锁登录（Android6.0及以上版本可用）
 - AES安全密码加密 
@@ -26,4 +26,4 @@
 - 于源代码内查看
 
 ## 下载
-- [http://ofx23nwen.bkt.clouddn.com/pr/2.8.apk](http://ofx23nwen.bkt.clouddn.com/pr/2.8.apk)
+- 可能下载链接会失效，请自行编译
